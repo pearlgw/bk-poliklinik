@@ -9,6 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    @if ($message = Session::get('error'))
+                        <div class="alert alert-success alert-dismissible fade show relative bg-red-500 text-white p-4 rounded-lg mb-4"
+                            role="alert">
+                            <span class="block">{{ $message }}</span>
+                        </div>
+                    @endif
                     <a href="{{ route('dokter.jadwal_periksa.create') }}"
                         class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Buat</a>
                     <div class="relative overflow-x-auto mt-5">

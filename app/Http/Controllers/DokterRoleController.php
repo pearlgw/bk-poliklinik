@@ -90,8 +90,14 @@ class DokterRoleController extends Controller
 
         $validate['id_dokter'] = Auth::id();
         $validate['status'] = 'Non Aktif';
-        JadwalPeriksa::create($validate);
 
+        $existingData = JadwalPeriksa::where('id_dokter', Auth::id())->where('hari', $validate['hari'])->first();
+
+        if($existingData){
+            return redirect()->route('dokter.jadwal_periksa')->with(['error' => 'Jadwal dokter sudah tersedia di hari yang sama']);
+        }
+
+        JadwalPeriksa::create($validate);
         return redirect()->route('dokter.jadwal_periksa');
     }
 
