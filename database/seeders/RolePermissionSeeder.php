@@ -30,6 +30,8 @@ class RolePermissionSeeder extends Seeder
             // 'menghitung biaya periksa',
             'memberikan catatan obat',
             'menampilkan riwayat pasien',
+            'konsultasi pasien',
+            'konsultasi dokter',
         ];
 
         foreach ($permissions as $permission) {
@@ -45,6 +47,7 @@ class RolePermissionSeeder extends Seeder
         $pasienPermission = [
             'pendaftaran pasien',
             'mendaftar poli',
+            'konsultasi pasien'
         ];
 
         $userPasiens = [
@@ -95,6 +98,7 @@ class RolePermissionSeeder extends Seeder
             'input jadwal periksa',
             'memeriksa pasien',
             'menampilkan riwayat pasien',
+            'konsultasi dokter',
         ];
 
         $userDokters = [

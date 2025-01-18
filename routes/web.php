@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\DokterRoleController;
+use App\Http\Controllers\KonsultasiController;
+use App\Http\Controllers\KonsultasiDokterController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PasienRoleController;
@@ -90,8 +92,25 @@ Route::middleware('auth')->group(function () {
         Route::get('/daftar-pasien/{id}', [DokterRoleController::class, 'daftarPasienCreate'])->name('dokter.daftarPasien.create');
         Route::post('/daftar-pasien', [DokterRoleController::class, 'daftarPasienStore'])->name('dokter.daftarPasien.store');
     });
+
     Route::middleware('can:menampilkan riwayat pasien')->group(function () {
         Route::get('/riwayat-pasien', [DokterRoleController::class, 'riwayatPasien'])->name('dokter.riwayatPasien');
+    });
+    
+    Route::middleware('can:konsultasi pasien')->group(function () {
+        Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi.pasien');
+        Route::get('/konsultasi/{id}/chat', [KonsultasiController::class, 'getChat']);
+        Route::post('/konsultasi/{id}', [KonsultasiController::class, 'postChat']);
+        Route::get('/konsultasi/{id}/edit', [KonsultasiController::class, 'getEdit']);
+        Route::patch('/konsultasi/{id}', [KonsultasiController::class, 'patchChat']);
+        Route::delete('/konsultasi/{id}', [KonsultasiController::class, 'deleteChat']);
+    });
+    
+    Route::middleware('can:konsultasi dokter')->group(function () {
+        Route::get('/konsultasi-pasien', [KonsultasiDokterController::class, 'index'])->name('konsultasi.dokter');
+        Route::get('/konsultasi-pasien/{id}/tanggapan', [KonsultasiDokterController::class, 'create']);
+        Route::patch('/konsultasi-pasien/{id}', [KonsultasiDokterController::class, 'update']);
+        Route::get('/konsultasi-pasien/{id}/edit', [KonsultasiDokterController::class, 'edit']);
     });
 });
 
